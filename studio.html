@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#070912">
+<meta name="description" content="Swap faces directly in your browser. Everything runs on your own device - no uploads, no server, no account. Watermark and consent gate on by default.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23070912'/%3E%3Ccircle cx='24' cy='30' r='12' fill='none' stroke='%235ee7ff' stroke-width='4'/%3E%3Ccircle cx='42' cy='34' r='12' fill='none' stroke='%23b06bff' stroke-width='4'/%3E%3C/svg%3E">
+<title>Studio — FaceSwap Studio</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/studio.css">
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <nav>
+      <a class="brand" href="index.html">
+        <span class="logo">
+          <svg viewBox="0 0 64 64" fill="none"><circle cx="24" cy="30" r="13" stroke="#05070f" stroke-width="6"/><circle cx="44" cy="36" r="13" stroke="#05070f" stroke-width="6"/></svg>
+        </span>
+        <span>FaceSwap <i>Studio</i></span>
+      </a>
+      <button class="burger" id="burger" aria-label="Menu" aria-expanded="false">☰</button>
+      <div class="nav-links" id="navlinks">
+        <a href="index.html#pipeline">Pipeline</a>
+        <a href="index.html#models">Models</a>
+        <a href="index.html#features">Features</a>
+        <a href="index.html#safeguards">Safeguards</a>
+        <a href="index.html#faq">FAQ</a>
+        <a class="btn btn-primary nav-cta" href="studio.html" aria-current="page">Open Studio</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main class="studio-main">
+  <div class="wrap">
+
+    <div class="studio-head">
+      <div>
+        <span class="kicker">Browser edition</span>
+        <h1>Swap faces, right here.</h1>
+        <p>Add a <b>source face</b> and a <b>target photo</b> — detection, warping, colour matching and blending all happen inside your browser. Nothing is uploaded anywhere.</p>
+      </div>
+      <span class="chip chip-busy" id="modelChip">Loading face detector…</span>
+    </div>
+
+    <!-- consent gate -->
+    <div class="consent">
+      <input type="checkbox" id="consent">
+      <label for="consent">
+        <b>I have permission</b> to use every face in these images.
+        <small>Required before any swap. Only swap people who have agreed to it — results are watermarked “AI-GENERATED” by default.</small>
+      </label>
+    </div>
+
+    <!-- editor -->
+    <div class="editor">
+      <div class="slot" id="srcSlot" role="button" tabindex="0" aria-label="Upload source face">
+        <span class="slot-tag">Source face</span>
+        <div class="slot-hint">
+          <span class="big">🙂</span>
+          <strong>Drop or click to add</strong>
+          <span>the face you want to copy</span>
+        </div>
+        <img id="srcPreview" alt="Source preview" hidden>
+        <input type="file" id="srcInput" accept="image/*" hidden>
+      </div>
+
+      <div class="editor-arrow"><span class="spin">⇄</span></div>
+
+      <div class="slot" id="tgtSlot" role="button" tabindex="0" aria-label="Upload target image">
+        <span class="slot-tag">Target image</span>
+        <div class="slot-hint">
+          <span class="big">🖼</span>
+          <strong>Drop or click to add</strong>
+          <span>the photo that will receive the face</span>
+        </div>
+        <img id="tgtPreview" alt="Target preview" hidden>
+        <input type="file" id="tgtInput" accept="image/*" hidden>
+      </div>
+    </div>
+
+    <!-- options -->
+    <div class="options">
+      <div class="opt">
+        <label for="feather">Edge feather</label>
+        <input type="range" id="feather" min="2" max="40" step="1" value="14">
+        <span class="val" id="featherVal">14</span>
+      </div>
+      <div class="opt">
+        <input type="checkbox" id="optColor" checked>
+        <label for="optColor">Colour match</label>
+      </div>
+      <div class="opt">
+        <input type="checkbox" id="optMark" checked>
+        <label for="optMark">Watermark (AI-GENERATED)</label>
+      </div>
+    </div>
+
+    <!-- actions -->
+    <div class="actions">
+      <button class="btn-big" id="swapBtn" disabled>Swap faces</button>
+      <span class="job" id="jobStatus" hidden></span>
+    </div>
+    <div class="notice" id="notice" hidden></div>
+
+    <!-- result -->
+    <section class="result" id="result" hidden>
+      <div class="result-head">
+        <h2>Result — drag the handle to compare</h2>
+        <div class="result-btns">
+          <button class="btn btn-primary" id="downloadBtn">⬇ Download PNG</button>
+          <button class="btn btn-ghost" id="resetBtn">Swap again</button>
+        </div>
+      </div>
+      <div class="compare" id="cmpWrap">
+        <canvas id="cmpBase"></canvas>
+        <canvas id="cmpTop"></canvas>
+        <span class="cmp-label l">Original</span>
+        <span class="cmp-label r">Swapped</span>
+        <div class="cmp-line" id="cmpLine"></div>
+        <div class="cmp-grab" id="cmpHandle">⇔</div>
+      </div>
+    </section>
+
+    <div class="privacy">
+      <span>🔒</span>
+      <p><b>Privacy:</b> your images never leave this page — detection runs on WebAssembly (MediaPipe) and the blend runs on canvas, both on your own hardware. The detector file (~3 MB) is downloaded once from a CDN, cached by your browser, and contains no image data.</p>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  <div class="wrap foot">
+    <a class="brand" href="index.html">
+      <span class="logo">
+        <svg viewBox="0 0 64 64" fill="none"><circle cx="24" cy="30" r="13" stroke="#05070f" stroke-width="6"/><circle cx="44" cy="36" r="13" stroke="#05070f" stroke-width="6"/></svg>
+      </span>
+      <span>FaceSwap <i>Studio</i></span>
+    </a>
+    <div class="foot-links">
+      <a href="index.html">Home</a>
+      <a href="index.html#pipeline">Pipeline</a>
+      <a href="index.html#safeguards">Safeguards</a>
+      <a href="studio.html">Studio</a>
+    </div>
+    <small>Offline-first · Consent required · Watermarked output</small>
+  </div>
+</footer>
+
+<script src="js/script.js"></script>
+<script src="js/face-detector.js"></script>
+<script src="js/swap-engine.js"></script>
+<script src="js/studio.js"></script>
+</body>
+</html>

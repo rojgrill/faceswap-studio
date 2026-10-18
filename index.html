@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#070912">
+<meta name="description" content="FaceSwap Studio - a fully offline, privacy-first face swapping desktop app for Windows. Multi-stage quality pipeline, consent gate, watermark and metadata tagging built in.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23070912'/%3E%3Ccircle cx='24' cy='30' r='12' fill='none' stroke='%235ee7ff' stroke-width='4'/%3E%3Ccircle cx='42' cy='34' r='12' fill='none' stroke='%23b06bff' stroke-width='4'/%3E%3C/svg%3E">
+<title>FaceSwap Studio — Offline Face Swapping for Windows</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <nav>
+      <a class="brand" href="#top">
+        <span class="logo">
+          <svg viewBox="0 0 64 64" fill="none"><circle cx="24" cy="30" r="13" stroke="#05070f" stroke-width="6"/><circle cx="44" cy="36" r="13" stroke="#05070f" stroke-width="6"/></svg>
+        </span>
+        <span>FaceSwap <i>Studio</i></span>
+      </a>
+      <button class="burger" id="burger" aria-label="Menu" aria-expanded="false">☰</button>
+      <div class="nav-links" id="navlinks">
+        <a href="#pipeline">Pipeline</a>
+        <a href="#models">Models</a>
+        <a href="#features">Features</a>
+        <a href="#safeguards">Safeguards</a>
+        <a href="#cli">CLI</a>
+        <a href="#faq">FAQ</a>
+        <a href="studio.html">Studio</a>
+        <a class="btn btn-primary nav-cta" href="#download">Download</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="pill"><span class="dot"></span> 100% Offline · Windows</span>
+      <h1>Swap faces with<br><span class="grad">studio-grade quality</span><br>on your own PC.</h1>
+      <p class="lede">
+        FaceSwap Studio is a Windows desktop app that swaps faces in <b>images and video</b>
+        entirely locally. Download the models once, then work with no internet, no cloud,
+        and no uploaded data — a multi-stage pipeline delivers the quality, not luck.
+      </p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="studio.html">◨ Try it in your browser</a>
+        <a class="btn btn-ghost" href="#pipeline">See how it works</a>
+      </div>
+      <div class="hero-stats">
+        <div><b>7-stage</b><span>Quality pipeline</span></div>
+        <div><b>0 uploads</b><span>Runs fully offline</span></div>
+        <div><b>3 presets</b><span>Fast → Max quality</span></div>
+        <div><b>~71 MB</b><span>Portable exe</span></div>
+      </div>
+    </div>
+
+    <div class="demo">
+      <div class="demo-head">
+        <i style="background:#ff6b6b"></i><i style="background:#ffc76b"></i><i style="background:#5dffb0"></i>
+        <span class="mono" style="margin-left:8px">faceswap-studio — preview</span>
+      </div>
+      <div class="faces">
+        <div class="face-card">
+          <span class="face-tag">Source</span>
+          <svg viewBox="0 0 200 200" role="img" aria-label="Source face illustration">
+            <defs>
+              <linearGradient id="gA" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#1a2140"/><stop offset="1" stop-color="#0d1024"/>
+              </linearGradient>
+            </defs>
+            <rect width="200" height="200" fill="url(#gA)"/>
+            <circle cx="100" cy="88" r="52" fill="#3b4670"/>
+            <path d="M48 88a52 52 0 0 1 104 0z" fill="#2a3155"/>
+            <circle cx="82" cy="86" r="6" fill="#0d1024"/><circle cx="118" cy="86" r="6" fill="#0d1024"/>
+            <path d="M86 112q14 12 28 0" stroke="#0d1024" stroke-width="5" fill="none" stroke-linecap="round"/>
+            <path d="M60 168q40-26 80 0v32H60z" fill="#2a3155"/>
+          </svg>
+        </div>
+        <div class="arrow"><span class="spin">⇄</span></div>
+        <div class="face-card out">
+          <span class="face-tag">Result</span>
+          <svg viewBox="0 0 200 200" role="img" aria-label="Swapped result illustration">
+            <defs>
+              <linearGradient id="gB" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#26183f"/><stop offset="1" stop-color="#101430"/>
+              </linearGradient>
+            </defs>
+            <rect width="200" height="200" fill="url(#gB)"/>
+            <circle cx="100" cy="88" r="52" fill="#8a5fbf"/>
+            <path d="M48 88a52 52 0 0 1 104 0z" fill="#6d47a3"/>
+            <circle cx="82" cy="86" r="6" fill="#101430"/><circle cx="118" cy="86" r="6" fill="#101430"/>
+            <path d="M84 110q16 16 32 0" stroke="#101430" stroke-width="5" fill="none" stroke-linecap="round"/>
+            <path d="M60 168q40-26 80 0v32H60z" fill="#6d47a3"/>
+            <rect x="8" y="176" width="112" height="18" rx="4" fill="#05070f" opacity=".72"/>
+            <text x="14" y="189" font-family="Consolas,monospace" font-size="11" fill="#5dffb0">AI-GENERATED</text>
+          </svg>
+        </div>
+      </div>
+      <div class="stage-bar"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <p class="demo-note">Detect → Align → <b>inswapper</b> → Mask → Restore → Color &amp; Light → Seamless blend</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PIPELINE ============ -->
+<section id="pipeline" class="alt">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="kicker">How it works</span>
+      <h2>Quality comes from the pipeline, not the raw model.</h2>
+      <p>Every face goes through the same seven-stage path. Each stage exists to fix what the stage before it got slightly wrong.</p>
+    </div>
+    <div class="pipe">
+      <div class="step rv">
+        <span class="num">STAGE 01</span>
+        <h3>Detect &amp; embed</h3>
+        <p>SCRFD finds every face, ArcFace extracts a 512-d identity embedding so the right person is swapped.</p>
+        <code>buffalo_l · det_10g + w600k_r50</code>
+      </div>
+      <div class="step rv">
+        <span class="num">STAGE 02</span>
+        <h3>Align</h3>
+        <p>Similarity transform (Umeyama, pure NumPy) maps the face into a canonical 512px space — up to 1024px for large faces.</p>
+        <code>ALIGN_SIZE=512 · ALIGN_MAX=1024</code>
+      </div>
+      <div class="step rv">
+        <span class="num">STAGE 03</span>
+        <h3>Swap</h3>
+        <p>inswapper_128 generates the new face at 128px, then it is upscaled back into the aligned frame.</p>
+        <code>inswapper_128.onnx</code>
+      </div>
+      <div class="step rv">
+        <span class="num">STAGE 04</span>
+        <h3>Parse &amp; mask</h3>
+        <p>BiSeNet face parsing builds a mask that protects glasses, hair and hands — only skin gets replaced.</p>
+        <code>face_parsing_resnet18</code>
+      </div>
+      <div class="step rv">
+        <span class="num">STAGE 05</span>
+        <h3>Restore</h3>
+        <p>Optional GPEN/GFPGAN recovery with adaptive strength: small faces get more help, large faces stay natural.</p>
+        <code>gpen512 · gfpgan · auto_strength()</code>
+      </div>
+      <div class="step rv">
+        <span class="num">STAGE 06</span>
+        <h3>Color &amp; light</h3>
+        <p>LAB color transfer inside the mask, then spatial illumination matching for rim light and shadows.</p>
+        <code>color_match 0.6 · illum_match 0.5</code>
+      </div>
+      <div class="step rv">
+        <span class="num">STAGE 07</span>
+        <h3>Seamless blend</h3>
+        <p>Feathered edge plus Poisson seamless clone, then the face is pasted back at the original resolution.</p>
+        <code>seamless=True · feather=12</code>
+      </div>
+      <div class="step rv">
+        <span class="num">VIDEO MODE</span>
+        <h3>Streaming + tracking</h3>
+        <p>Frame-by-frame streaming with IoU face tracking, temporal EMA smoothing and scene-cut detection, audio preserved.</p>
+        <code>detect_every=3 · ema=0.65</code>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ MODELS ============ -->
+<section id="models">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="kicker">Models</span>
+      <h2>Downloaded once, verified by SHA-256, never bundled.</h2>
+      <p>Models live next to the exe (or in a shared data folder) and are checked against <span class="mono">models/.manifest.json</span> before use.</p>
+    </div>
+    <div class="table-wrap rv">
+      <table class="table">
+        <thead>
+          <tr><th>Model</th><th>Role</th><th>Size</th><th>Status</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>buffalo_l</td><td>Face detection (SCRFD) + identity embedding (ArcFace)</td><td>~289 MB</td><td><span class="badge b-core">Required</span></td></tr>
+          <tr><td>inswapper_128</td><td>The core swap GAN</td><td>~554 MB</td><td><span class="badge b-core">Required</span></td></tr>
+          <tr><td>face_parsing_resnet18</td><td>Mask that protects hair, glasses and hands</td><td>~53 MB</td><td><span class="badge b-core">Required</span></td></tr>
+          <tr><td>nsfw_mobilenetv2</td><td>NSFW content filter (video, every 45 frames)</td><td>small</td><td><span class="badge b-safe">Safeguard</span></td></tr>
+          <tr><td>gpen512 / gfpgan</td><td>Face restoration &amp; enhancement</td><td>—</td><td><span class="badge b-opt">Optional</span></td></tr>
+          <tr><td>realesrgan</td><td>Whole-frame upscaling (slow on CPU)</td><td>—</td><td><span class="badge b-opt">Optional</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note rv"><b>Hard limit:</b> the detector model <span class="mono">det_10g.onnx</span> accepts a maximum of <b>768px</b> — at 896+ it detects nothing at all, so the app enforces a strict 768 ceiling everywhere.</p>
+  </div>
+</section>
+
+<!-- ============ PRESETS ============ -->
+<section class="alt" id="presets">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="kicker">Modes</span>
+      <h2>One mode picker: Fast to Max quality.</h2>
+      <p>Touch any setting and the mode switches to Custom automatically. <b>Auto</b> picks for you after a first-run benchmark.</p>
+    </div>
+    <div class="presets">
+      <div class="preset p-fast rv">
+        <h3><em></em>Fast</h3>
+        <ul>
+          <li>Detection size <b>320</b></li>
+          <li>Re-detect every <b>5</b> frames</li>
+          <li>No restoration, <b>illum 0.0</b></li>
+          <li>Linear blend, no hires pass</li>
+        </ul>
+      </div>
+      <div class="preset p-bal rv">
+        <h3><em></em>Balanced</h3>
+        <ul>
+          <li>Detection size <b>640</b></li>
+          <li>Re-detect every <b>3</b> frames</li>
+          <li>Illumination match <b>0.45</b></li>
+          <li>Seamless clone + hires pass</li>
+        </ul>
+      </div>
+      <div class="preset p-max rv">
+        <h3><em></em>Max quality</h3>
+        <ul>
+          <li>Detection size <b>768</b> (the ceiling)</li>
+          <li>Re-detect every <b>2</b> frames</li>
+          <li><b>gpen512</b> restoration at 0.55</li>
+          <li>Illum 0.6, feather 16, hires</li>
+        </ul>
+      </div>
+      <div class="preset p-auto rv">
+        <h3><em></em>Auto</h3>
+        <ul>
+          <li>Benchmarks your hardware once</li>
+          <li>Picks provider: CUDA → DML → CPU</li>
+          <li>Chooses a preset that fits your speed</li>
+          <li>Re-runs whenever hardware changes</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FEATURES ============ -->
+<section id="features">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="kicker">Interface</span>
+      <h2>Built like a real editor, not a wizard.</h2>
+      <p>Dockable panels, a face map for multi-person photos, and a batch queue — the six things that made the workflow actually usable.</p>
+    </div>
+    <div class="feat">
+      <div class="f-card rv">
+        <div class="f-ico">👤</div>
+        <h3>Source library</h3>
+        <p>Rename, delete and re-analyse source photos, and pick a different face inside the same picture — every candidate is scored for sharpness, size, pose and lighting.</p>
+      </div>
+      <div class="f-card rv">
+        <div class="f-ico">🗂</div>
+        <h3>Dockable panels</h3>
+        <p>Photoshop-style docks you can drag, detach and tab. Save, restore or reset the layout; every panel scrolls independently so nothing gets clipped in a small window.</p>
+      </div>
+      <div class="f-card rv">
+        <div class="f-ico">🎚</div>
+        <h3>Mode picker</h3>
+        <p>Auto / Fast / Balanced / Max quality / Custom in one control. Nudge any slider and it flips to Custom so you always know you are off the defaults.</p>
+      </div>
+      <div class="f-card rv">
+        <div class="f-ico">📁</div>
+        <h3>Output folders</h3>
+        <p>A fixed output root plus an optional sub-folder per run, and the app remembers your last input and output directories between sessions.</p>
+      </div>
+      <div class="f-card rv">
+        <div class="f-ico">⏱</div>
+        <h3>Real video ETA</h3>
+        <p>The progress relay shows elapsed and “remaining ~” updated four times a second, with cancel at any point — the number you care about is the one left.</p>
+      </div>
+      <div class="f-card rv">
+        <div class="f-ico">🗺</div>
+        <h3>Face map</h3>
+        <p>In photos with several people, route each target face to a chosen source — or mark it “Keep original”. One image, multiple identities, fully controlled.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SAFEGUARDS ============ -->
+<section id="safeguards" class="alt">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="kicker">Responsible use</span>
+      <h2>Ethics are on by default.</h2>
+      <p>Consent, watermarking and content checks are active out of the box. Turning them off has to be a deliberate act.</p>
+    </div>
+    <div class="safe-grid">
+      <div class="safe rv">
+        <div class="s-ico">✅</div>
+        <h3>Consent gate</h3>
+        <p>Nothing runs until “I have permission to use these images” is checked. The gate is mandatory before any swap or video job starts.</p>
+        <span class="s-def">Enforced</span>
+      </div>
+      <div class="safe rv">
+        <div class="s-ico">💧</div>
+        <h3>Watermark</h3>
+        <p>A semi-transparent “AI-GENERATED” mark sits in the bottom-right of every exported image at 55% opacity.</p>
+        <span class="s-def">On by default</span>
+      </div>
+      <div class="safe rv">
+        <div class="s-ico">🏷</div>
+        <h3>Metadata tag</h3>
+        <p>An invisible provenance tag is written into PNG tEXt chunks or JPG COM comments so the origin travels with the file.</p>
+        <span class="s-def">On by default</span>
+      </div>
+      <div class="safe rv">
+        <div class="s-ico">🛡</div>
+        <h3>NSFW filter</h3>
+        <p>A MobileNetV2 classifier plus a skin-tone heuristic screens video frames; unsafe content aborts the job before it is written.</p>
+        <span class="s-def">On by default</span>
+      </div>
+    </div>
+    <p class="note rv"><b>Reminder:</b> never swap a person’s face without their consent, and keep the watermark and metadata tag on for anything you publish.</p>
+  </div>
+</section>
+
+<!-- ============ CLI ============ -->
+<section id="cli">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="kicker">Command line</span>
+      <h2>Every feature is scriptable.</h2>
+      <p>The GUI and the CLI share one core, so batch jobs and tests run exactly the same pipeline.</p>
+    </div>
+    <div class="cli">
+      <div class="terminal rv">
+        <div class="term-bar">
+          <i style="background:#ff6b6b"></i><i style="background:#ffc76b"></i><i style="background:#5dffb0"></i>
+          <span>PowerShell — faceswap</span>
+        </div>
+        <div class="term-body">
+<span class="c"># hardware + provider probe</span><br>
+<span class="cmd">python -m cli</span> <span class="b">hw</span><br><br>
+<span class="c"># fetch and verify all models</span><br>
+<span class="cmd">python -m cli</span> <span class="b">download</span> <span class="y">--all</span><br>
+<span class="cmd">python -m cli</span> <span class="b">verify</span><br><br>
+<span class="c"># swap a face in an image</span><br>
+<span class="cmd">python -m cli</span> <span class="b">swap</span> <span class="p">-s</span> src.jpg <span class="p">-t</span> tgt.jpg <span class="p">-o</span> out.png <span class="y">--preset</span> balanced<br><br>
+<span class="c"># process a video (audio preserved)</span><br>
+<span class="cmd">python -m cli</span> <span class="b">video</span> <span class="p">-s</span> src.jpg <span class="p">-t</span> clip.mp4 <span class="p">-o</span> out.mp4 <span class="y">--preset</span> fast<br><br>
+<span class="c"># safeguards are on by default</span><br>
+<span class="cmd">python -m cli</span> <span class="b">swap</span> ... <span class="g">--no-watermark --no-metadata</span><br><br>
+<span class="c"># full-line self test (0 = OK)</span><br>
+<span class="cmd">python main.py</span> <span class="y">--selftest</span><br>
+<span class="g">result: OK</span>
+        </div>
+      </div>
+      <div class="cli-side rv">
+        <h3>What you get</h3>
+        <ul>
+          <li><b>Same pipeline</b> — CLI results match the GUI exactly, no “demo mode”.</li>
+          <li><b>Headless tests</b> — quality, safeguards, features, hires, blend and batch scripts all exit non-zero on failure.</li>
+          <li><b>Self-test</b> — runs detect + embed + swap on bundled samples; essential for catching packaging mistakes.</li>
+          <li><b>Benchmarks</b> — <span class="mono">cli bench</span> measures your machine and feeds Auto mode.</li>
+          <li><b>Environment control</b> — <span class="mono">FACESWAP_PROVIDER</span>, <span class="mono">FACESWAP_DATA_DIR</span>, <span class="mono">FACESWAP_LOG_LEVEL</span>, <span class="mono">FACESWAP_CPU_THREADS</span>, <span class="mono">HF_TOKEN</span>.</li>
+          <li><b>Portable build</b> — <span class="mono">pyinstaller faceapp.spec</span> produces a one-folder exe with ffmpeg included.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ HARDWARE ============ -->
+<section class="alt" id="hardware">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="kicker">Hardware</span>
+      <h2>The best provider that actually works.</h2>
+      <p>Every backend is probed with a real model before it is used — if DirectML misbehaves on your GPU, the app silently falls back to CPU instead of crashing.</p>
+    </div>
+    <div class="hw">
+      <div class="hw-card rv">
+        <span class="rank">Priority 1</span>
+        <h3>CUDA</h3>
+        <p>NVIDIA GPUs — the fastest path, orders of magnitude above CPU on video.</p>
+        <div class="order">onnxruntime-directml / CUDA EP</div>
+      </div>
+      <div class="hw-card rv">
+        <span class="rank">Priority 2</span>
+        <h3>DirectML</h3>
+        <p>Any GPU on Windows. Probe-tested first — rejected if SCRFD reshapes fail.</p>
+        <div class="order">cache/provider_probe.json</div>
+      </div>
+      <div class="hw-card rv">
+        <span class="rank">Fallback</span>
+        <h3>CPU</h3>
+        <p>Always available. Expect roughly 0.5–1 fps on 720p video; use the Fast preset.</p>
+        <div class="order">FACESWAP_CPU_THREADS=auto</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA / DOWNLOAD ============ -->
+<section id="download">
+  <div class="wrap">
+    <div class="band rv">
+      <span class="kicker">Get started</span>
+      <h2>Three commands to your first swap.</h2>
+      <p>Requires Python 3.12 (3.11 works). Models download on first run and are verified by SHA-256 — nothing else to configure.</p>
+      <div class="btns">
+        <a class="btn btn-primary" href="#cli">⬇ Download for Windows</a>
+        <a class="btn btn-ghost" href="#faq">Read the FAQ</a>
+      </div>
+      <div class="terminal" style="margin-top:30px;text-align:left">
+        <div class="term-bar">
+          <i style="background:#ff6b6b"></i><i style="background:#ffc76b"></i><i style="background:#5dffb0"></i>
+          <span>quick start</span>
+        </div>
+        <div class="term-body">
+<span class="cmd">.\start.bat</span>                  <span class="c"># venv + install + launch the GUI</span><br>
+<span class="cmd">.\start.bat</span> <span class="y">--selftest</span>      <span class="c"># verify the full detect→embed→swap line</span><br>
+<span class="cmd">pyinstaller</span> faceapp.spec    <span class="c"># build the portable ~71 MB exe</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq" class="alt">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <span class="kicker">FAQ</span>
+      <h2>Common questions.</h2>
+    </div>
+    <div class="faq">
+      <details class="rv" open>
+        <summary>Does anything leave my computer?</summary>
+        <p>No. Detection, swapping, restoration and encoding all run locally. Internet is only used once, to download the models — and video encoding uses a locally bundled ffmpeg.</p>
+      </details>
+      <details class="rv">
+        <summary>Why is video slow on my machine?</summary>
+        <p>On CPU, expect roughly 0.5–1 frame per second at 720p. Switch to the Fast preset (detection 320, no restoration) and use face tracking so detection runs every 5 frames instead of every frame. On a CUDA GPU, video is dramatically faster.</p>
+      </details>
+      <details class="rv">
+        <summary>My GPU is detected but the app reports CPU. Is that a bug?</summary>
+        <p>It is deliberate. Each provider is tested with a real model first — on some older GPUs DirectML fails a SCRFD reshape check, so the app falls back silently. Details are in <span class="mono">logs/app.log</span>; run with <span class="mono">FACESWAP_LOG_LEVEL=DEBUG</span> for more.</p>
+      </details>
+      <details class="rv">
+        <summary>Where are models stored, and can I share them between installs?</summary>
+        <p>Next to the exe by default (<span class="mono">dist\FaceSwapStudio\models</span>). Set <span class="mono">FACESWAP_DATA_DIR</span> in a <span class="mono">.env</span> file to point several copies at one shared model cache. Every file is verified against <span class="mono">models/.manifest.json</span>.</p>
+      </details>
+      <details class="rv">
+        <summary>Can I publish the results?</summary>
+        <p>Only with the consent of every person shown, and keep the watermark and metadata tag on — they are enabled by default precisely so viewers can tell AI-modified content apart.</p>
+      </details>
+      <details class="rv">
+        <summary>Which Python version is supported?</summary>
+        <p>Python 3.12.8 is the tested release (3.11 works). Python 3.13 is not supported because of insightface and numpy &lt; 2 constraints.</p>
+      </details>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <a class="brand" href="#top">
+      <span class="logo">
+        <svg viewBox="0 0 64 64" fill="none"><circle cx="24" cy="30" r="13" stroke="#05070f" stroke-width="6"/><circle cx="44" cy="36" r="13" stroke="#05070f" stroke-width="6"/></svg>
+      </span>
+      <span>FaceSwap <i>Studio</i></span>
+    </a>
+    <div class="foot-links">
+      <a href="#pipeline">Pipeline</a>
+      <a href="#models">Models</a>
+      <a href="#features">Features</a>
+      <a href="#safeguards">Safeguards</a>
+      <a href="#cli">CLI</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <small>Offline-first · Consent required · Watermarked output</small>
+  </div>
+</footer>
+
+<script src="js/script.js"></script>
+</body>
+</html>
